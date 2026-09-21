@@ -5,7 +5,8 @@ import Auth from './components/Auth'
 import Layout from './components/Layout'
 import Tasks from './components/Tasks'
 import Settings from './components/Settings'
-import { Analytics } from "@vercel/analytics/next"
+import Analytics from '@vercel/analytics/react'
+
 
 export default function App() {
   const [user, setUser] = useState(null)
