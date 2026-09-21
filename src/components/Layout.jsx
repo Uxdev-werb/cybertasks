@@ -1,14 +1,6 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { NavLink, Outlet } from 'react-router-dom'
 
 export default function Layout({ user }) {
-  const navigate = useNavigate()
-
-  const logout = async () => {
-    await supabase.auth.signOut()
-    navigate('/')
-  }
-
   return (
     <div className="min-h-screen bg-[#0d1117] flex">
       {/* Sidebar */}
@@ -29,9 +21,7 @@ export default function Layout({ user }) {
           ))}
         </nav>
         <div className="border-t border-[#30363d] pt-3">
-          <p className="text-xs text-gray-500 truncate mb-2">{user.email}</p>
-          <button onClick={logout}
-            className="text-red-400 text-sm hover:underline">Cerrar sesión</button>
+          <p className="text-xs text-gray-500 truncate">👤 {user.email}</p>
         </div>
       </aside>
 

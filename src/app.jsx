@@ -1,41 +1,20 @@
-import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { supabase } from './lib/supabase'
-import Auth from './components/Auth'
 import Layout from './components/Layout'
 import Tasks from './components/Tasks'
 import Settings from './components/Settings'
-import Analytics from '@vercel/analytics/react'
 
+// 👇 TU USUARIO FIJO — pega aquí el ID de tu usuario de Supabase
+const USER_ID = "4e537ead-e612-41ed-af4d-67b66a1a2618"
+const USER = { id: USER_ID, email: "u4255598169@gmail.com" }
 
 export default function App() {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setUser(data.session?.user || null)
-      setLoading(false)
-    })
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null)
-    })
-  }, [])
-
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center text-emerald-400">
-      Cargando...
-    </div>
-  )
-
-  if (!user) return <Auth />
-
   return (
     <Routes>
-      <Route element={<Layout user={user} />}>
-        <Route path="/" element={<Tasks user={user} />} />
-        <Route path="/tareas" element={<Tasks user={user} />} />
-        <Route path="/configuracion" element={<Settings user={user} />} />
+      <Route element={<Layout user={USER} />}>
+        <Route path="/" element={<Tasks user={USER} />} />
+        <Route path="/tareas" element={<Tasks user={USER} />} />
+        <Route path="/configuracion" element={<Settings user={USER} />} />
       </Route>
     </Routes>
   )
